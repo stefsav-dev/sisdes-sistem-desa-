@@ -1,0 +1,46 @@
+info:
+  name: Add Data KTP
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ktp"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "kk_id": "019d366e-bd28-7282-ac88-0c8033f7cd0c",
+        "nik": "1234567890123456",
+        "nama_lengkap": "Budi Santoso",
+        "tempat_lahir": "Bandung",
+        "tanggal_lahir": "2000-01-01",
+        "jenis_kelamin": "Laki-laki",
+        "alamat": "Jl. Contoh",
+        "kelurahan": "Kelurahan A",
+        "kecamatan": "Kecamatan B",
+        "kabupaten": "Kabupaten C",
+        "kota": "Kota D",
+        "agama": "Islam",
+        "status_perkawinan": "Belum Kawin",
+        "pekerjaan": "Karyawan"
+      }
+  auth:
+    type: bearer
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzc1MTIyMTk4LCJleHAiOjE3NzUxMjU3OTgsIm5iZiI6MTc3NTEyMjE5OCwianRpIjoiMDlRVDBydWhPM2Q5M1VrNiIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFkbWluIFVzZXIifQ.HxubB_Lx3VYnm94k0T0YyFQOaxOfwB-wMi4tUcYeygQ
+
+runtime:
+  variables:
+    - name: base_url
+      value: http://localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

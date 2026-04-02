@@ -1,0 +1,22 @@
+info:
+  name: Get Data Warga
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/user/{{id}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: base_url
+      value: http://localhost:8000
+    - name: id
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

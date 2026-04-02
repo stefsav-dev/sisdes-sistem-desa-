@@ -1,0 +1,22 @@
+info:
+  name: Get Dashboard Warga
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/warga/dashboard"
+  auth:
+    type: bearer
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzc1MDk0NTM1LCJleHAiOjE3NzUwOTgxMzUsIm5iZiI6MTc3NTA5NDUzNSwianRpIjoiQ1dOVnlkbnBDSldoZTFoSyIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6IndhcmdhIiwibmFtZSI6InVkaW4xMjMifQ.VV16yxeFXLgYmCEqh7tKKjN5-PIr6KPFMJ6fhsVEHi0
+
+runtime:
+  variables:
+    - name: base_url
+      value: http://localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

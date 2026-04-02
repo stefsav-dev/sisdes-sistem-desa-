@@ -1,0 +1,40 @@
+info:
+  name: Update Profile Warga
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/warga/profile"
+  body:
+    type: json
+    data: |
+      {
+        "name": "Budi",
+        "email": "budi@example.com",
+        "ktp": {
+          "nik": "1234567890123456",
+          "nama_lengkap": "Budi Santoso",
+          "pekerjaan": "Wiraswasta"
+        },
+        "kk": {
+          "nomor_kk": "317xxxxxxxxxxxxx",
+          "nama_kepala_keluarga": "Budi Santoso",
+          "alamat": "Jl. Melati No. 1",
+          "anggota_keluarga": "4"
+        }
+      }
+  auth:
+    type: bearer
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzc1MTAzNjY2LCJleHAiOjE3NzUxMDcyNjYsIm5iZiI6MTc3NTEwMzY2NiwianRpIjoiWUU1SnRNM1lmS25EbjJtZiIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6IndhcmdhIiwibmFtZSI6InVkaW4xMjMifQ.6H35Pt5-zf86yni1ljF74NH67IrN0t2uSyNYUxjQS8E
+
+runtime:
+  variables:
+    - name: base_url
+      value: http://localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

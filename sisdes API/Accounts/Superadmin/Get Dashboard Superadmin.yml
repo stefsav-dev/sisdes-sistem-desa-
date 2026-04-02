@@ -1,0 +1,22 @@
+info:
+  name: Get Dashboard Superadmin
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/superadmin/dashboard"
+  auth:
+    type: bearer
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzc1MDk0MDgxLCJleHAiOjE3NzUwOTc2ODEsIm5iZiI6MTc3NTA5NDA4MSwianRpIjoiSGF0d2JwVUlpZ084Uk12dCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6InN1cGVyYWRtaW4iLCJuYW1lIjoiU3VwZXIgQWRtaW4ifQ.Elx0jysNPFJ_JIk4GkuplLRqcPxBEzYbMqOCOUMxO6M
+
+runtime:
+  variables:
+    - name: base_url
+      value: http://localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

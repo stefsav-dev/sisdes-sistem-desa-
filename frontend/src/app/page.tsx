@@ -114,10 +114,10 @@ export default function NavigationMenuDemo() {
 
           <div className="justify-self-end flex items-center gap-3">
             <Button className="bg-white text-black hover:bg-zinc-200">
-              Login
+              <Link href="/auth/login">Login</Link>
             </Button>
-            <Button className="bg-white text-black hover:bg-zinc-200">
-              <Link href="./auth/register"></Link>Register
+            <Button className="bg-white text-black hover:bg-zinc-200">  
+              <Link href="/auth/register">Register</Link>
             </Button>
           </div>
         </div>
