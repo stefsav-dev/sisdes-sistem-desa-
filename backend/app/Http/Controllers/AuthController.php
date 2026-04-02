@@ -16,7 +16,8 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'sometimes|in:warga,admin,superadmin'
+            'role' => 'sometimes|in:warga,admin,superadmin',
+            'ktp_id' => 'sometimes|nullable|exists:ktp,id'
         ]);
 
         if ($validator->fails()) {
@@ -27,7 +28,8 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role ?? "warga"
+            'role' => $request->role ?? "warga",
+            'ktp_id' => $request->ktp_id
         ]);
 
         $token = JWTAuth::fromUser($user);
@@ -88,7 +90,7 @@ class AuthController extends Controller
     }
 
     public function me() {
-        return response()->json(Auth::user());
+        return response()->json(Auth::user()->load('ktp.kk'));
     }
 
     public function logout() {
@@ -125,7 +127,8 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role' => $user->role
+                'role' => $user->role,
+                'ktp_id' => $user->ktp_id
             ]
         ]);
     }

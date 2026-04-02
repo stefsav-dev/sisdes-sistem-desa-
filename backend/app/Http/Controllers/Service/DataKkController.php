@@ -18,6 +18,13 @@ class DataKkController extends Controller
     public function index(Request $request): JsonResponse {
         $data = $this->service->getAll($request);
 
+        if (!$data) {
+            return response()->json([
+                'success' => false,
+                'meesage' => 'Data Kartu Keluarga gagal diambil'
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Data Kartu Keluarga berhasil Diambil',

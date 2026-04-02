@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
 use App\Services\Penduduk\DataKtpService;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class DataKtpController extends Controller
 {
@@ -27,7 +27,7 @@ class DataKtpController extends Controller
     }
 
 
-    public function store(Request $request) : JsonResponse {
+    public function store(Request $request): JsonResponse {
         $validated = $request->validate([
             'kk_id' => 'required|exists:kk,id',
             'nik' => 'required|unique:ktp,nik',
@@ -48,8 +48,8 @@ class DataKtpController extends Controller
         $data = $this->service->store($validated);
 
         return response()->json([
-            'succeess' => true,
-            'message' => 'Data penduduk berhasil ditambahkan',
+            'success' => true,
+            'message' => 'Data KTP Penduduk ditambahkan',
             'data' => $data
         ],201);
     }
@@ -69,7 +69,7 @@ class DataKtpController extends Controller
     public function update(Request $request, string $id): JsonResponse
     {
         $validated = $request->validate([
-            'kk_id' => 'required|exists:kk,id',
+            'kk_id' => 'sometimes|exists:kk,id',
             'nik' => 'sometimes|unique:ktp,nik,' . $id,
             'nama_lengkap' => 'sometimes|string',
             'tempat_lahir' => 'sometimes|string',

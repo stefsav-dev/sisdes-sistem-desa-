@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Ktp extends Model
 {
@@ -29,7 +31,13 @@ class Ktp extends Model
         'pekerjaan',
     ];
 
-    public function kk() {
+    public function kk(): BelongsTo
+    {
         return $this->belongsTo(kk::class, 'kk_id');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'ktp_id');
     }
 }

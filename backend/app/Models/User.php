@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-#[Fillable(['name', 'email', 'password', 'role', 'refresh_token'])]
+#[Fillable(['name', 'email', 'password', 'role', 'refresh_token', 'ktp_id'])]
 #[Hidden(['password', 'refresh_token', 'remember_token'])]
 class User extends Authenticatable implements JWTSubject
 {
@@ -47,5 +48,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function isSuperAdmin(): bool {
         return $this->role === "superadmin";
+    }
+
+    public function ktp(): BelongsTo
+    {
+        return $this->belongsTo(Ktp::class, 'ktp_id')->with('kk');
     }
 }

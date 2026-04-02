@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaProfileController;
 use App\Http\Controllers\Service\DataKtpController;
 use App\Http\Controllers\Service\DataKkController;
 use Illuminate\Support\Facades\Route;
@@ -12,8 +13,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('refresh', [AuthController::class, 'refresh']);
 
-//Protected Routes
-Route::middleware(['auth:api'])->group(function() {
+// Protected Routes
+Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']);
 
@@ -21,15 +22,13 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('users/{id}', [UserController::class, 'show'])->middleware('role:admin,superadmin');
     Route::put('users/{id}', [UserController::class, 'update'])->middleware('role:admin,superadmin');
     Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware('role:superadmin');
-});
-
-
-Route::middleware(['auth:api'])->group(function () {
 
     // Warga Routes
     Route::get('warga/dashboard', function () {
         return response()->json(['message' => 'Welcome to Warga Dashboard']);
     })->middleware('role:warga');
+    Route::get('warga/profile', [WargaProfileController::class, 'show'])->middleware('role:warga');
+    Route::put('warga/profile', [WargaProfileController::class, 'update'])->middleware('role:warga');
 
 
     // Admin Routes
@@ -44,8 +43,8 @@ Route::middleware(['auth:api'])->group(function () {
     })->middleware('role:superadmin');
 
 
-    //Data KK & KK Controller
-    Route::apiResource('kk', DataKkController::class)->middleware('role:admin,superadmin');
-    Route::apiResource('ktp', DataKtpController::class)->middleware('role:admin,superadmin');
+    Route::middleware('role:admin,superadmin')->group(function () {
+        Route::apiResource('kk', DataKkController::class);
+        Route::apiResource('ktp', DataKtpController::class);
+    });
 });
-

@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function index() {
-        $users = User::all();
+        $users = User::with('ktp.kk')->get();
         return response()->json($users);
     }
 
     public function show($id) {
-        $user = User::findOrFail($id);
+        $user = User::with('ktp.kk')->findOrFail($id);
         return response()->json($user);
     }
 
@@ -26,7 +26,8 @@ class UserController extends Controller
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|email|max:255|unique:users,email,' . $id,
             'password' => 'sometimes|string|min:6|confirmed',
-            'role' => 'sometimes|in:warga,admin,superadmin'
+            'role' => 'sometimes|in:warga,admin,superadmin',
+            'ktp_id' => 'sometimes|nullable|exists:ktp,id'
         ]);
 
         if ($validator->fails()) {
@@ -49,11 +50,15 @@ class UserController extends Controller
             $user->role = $request->role;
         }
 
+        if ($request->has('ktp_id')) {
+            $user->ktp_id = $request->ktp_id;
+        }
+
         $user->save();
 
         return response()->json([
             'message' => 'User updated successfully',
-            'user' => $user
+            'user' => $user->load('ktp.kk')
         ]);
     }
 
