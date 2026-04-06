@@ -39,3 +39,19 @@ export async function parseApiResponse<T>(response: Response): Promise<T> {
 
   return payload as T;
 }
+
+export async function logoutRequest(accessToken: string) {
+  const response = await fetch(`${API_URL}/logout`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    return false;
+  }
+
+  return true;
+}

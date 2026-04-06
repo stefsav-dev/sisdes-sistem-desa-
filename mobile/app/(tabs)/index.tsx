@@ -8,6 +8,10 @@ import { ThemedView } from '@/components/themed-view';
 export default function HomeScreen() {
   const { isAuthenticated, logout, user } = useAuth();
 
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <ThemedView style={styles.container}>
       <ThemedText type="title">SIDDES Mobile</ThemedText>
@@ -21,7 +25,7 @@ export default function HomeScreen() {
           <ThemedText>Nama: {user.name}</ThemedText>
           <ThemedText>Email: {user.email}</ThemedText>
           <ThemedText>Role: {user.role}</ThemedText>
-          <Pressable style={styles.logoutButton} onPress={logout}>
+          <Pressable style={styles.logoutButton} onPress={handleLogout}>
             <ThemedText style={styles.logoutText}>Logout</ThemedText>
           </Pressable>
         </View>

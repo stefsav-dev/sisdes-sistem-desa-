@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 export default function AccountsLayout({
@@ -9,6 +10,7 @@ export default function AccountsLayout({
     <>
       <Navbar />
       <main className="flex-1">{children}</main>
+      <Footer/>
     </>
   );
 }

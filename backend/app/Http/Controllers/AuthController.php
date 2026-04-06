@@ -58,11 +58,11 @@ class AuthController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        if (!$token = Auth::attempt($credentials)) {
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json(['error' => 'Invalid Credentials'], 401);
         }
 
-        $user = Auth::user();
+        $user = Auth::guard('api')->user();
         $refreshToken = $this->createRefreshToken($user);
 
         return $this->respondWithToken($token, $refreshToken, $user);
@@ -83,25 +83,25 @@ class AuthController extends Controller
         }
 
         // Revoke old refresh token and create new one
-        $newToken = Auth::login($user);
+        $newToken = Auth::guard('api')->login($user);
         $newRefreshToken = $this->createRefreshToken($user);
 
         return $this->respondWithToken($newToken, $newRefreshToken, $user);
     }
 
     public function me() {
-        return response()->json(Auth::user()->load('ktp.kk'));
+        return response()->json(Auth::guard('api')->user()->load('ktp.kk'));
     }
 
     public function logout() {
-        $user = Auth::user();
+        $user = Auth::guard('api')->user();
 
         if ($user) {
             $user->refresh_token = null;
             $user->save();
         }
 
-        Auth::logout();
+        Auth::guard('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }

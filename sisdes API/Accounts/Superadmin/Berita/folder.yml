@@ -1,7 +1,7 @@
 info:
-  name: kk
+  name: Berita
   type: folder
-  seq: 3
+  seq: 4
 
 request:
   auth: inherit

@@ -1,5 +1,6 @@
 "use client";
 
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+      <Footer/>
     </>
   );
 }

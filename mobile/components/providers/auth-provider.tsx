@@ -1,5 +1,7 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 
+import { logoutRequest } from '@/lib/api';
+
 type UserRole = 'warga' | 'admin' | 'superadmin';
 
 type User = {
@@ -19,7 +21,7 @@ type AuthState = {
 type AuthContextType = AuthState & {
   isAuthenticated: boolean;
   setSession: (session: AuthState) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,12 +38,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       ...session,
       isAuthenticated: Boolean(session.accessToken && session.user),
       setSession: (nextSession) => setSessionState(nextSession),
-      logout: () =>
-        setSessionState({
-          accessToken: null,
-          refreshToken: null,
-          user: null,
-        }),
+      logout: async () => {
+        try {
+          if (session.accessToken) {
+            await logoutRequest(session.accessToken);
+          }
+        } finally {
+          setSessionState({
+            accessToken: null,
+            refreshToken: null,
+            user: null,
+          });
+        }
+      },
     }),
     [session],
   );
