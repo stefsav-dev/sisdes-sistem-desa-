@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { API_URL } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 type RegisterFormData = {
@@ -46,7 +47,7 @@ export function RegisterCard({ onSubmit, onSuccess, redirectUrl, className }: Re
       if (onSubmit) {
         await onSubmit(formData);
       } else {
-        const response = await fetch("/api/register", {
+        const response = await fetch(`${API_URL}/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),

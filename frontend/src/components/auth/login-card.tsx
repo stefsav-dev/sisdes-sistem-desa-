@@ -11,8 +11,9 @@ import { cn } from "@/lib/utils";
 type LoginFormData = {
   email: string;
   password: string;
-  rememberMe: boolean;
 };
+
+export type { LoginFormData };
 
 interface LoginCardProps {
   onSubmit?: (data: LoginFormData) => Promise<void> | void;
@@ -24,7 +25,6 @@ interface LoginCardProps {
 export function LoginCard({ onSubmit, onSuccess, redirectUrl, className }: LoginCardProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -34,7 +34,7 @@ export function LoginCard({ onSubmit, onSuccess, redirectUrl, className }: Login
     setError("");
 
     try {
-      const formData = { email, password, rememberMe };
+      const formData = { email, password };
 
       if (onSubmit) {
         await onSubmit(formData);
@@ -104,17 +104,6 @@ export function LoginCard({ onSubmit, onSuccess, redirectUrl, className }: Login
               disabled={loading}
             />
           </div>
-
-          <label className="flex items-center gap-2 text-sm text-muted-foreground">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              disabled={loading}
-              className="h-4 w-4 rounded border-input"
-            />
-            Remember me
-          </label>
         </CardContent>
 
         <CardFooter className="flex flex-col space-y-4">
@@ -124,7 +113,7 @@ export function LoginCard({ onSubmit, onSuccess, redirectUrl, className }: Login
           
           <div className="text-sm text-center text-muted-foreground">
             Don't have an account?{" "}
-            <a href="/register" className="text-primary hover:underline">
+            <a href="/auth/register" className="text-primary hover:underline">
               Register
             </a>
           </div>
