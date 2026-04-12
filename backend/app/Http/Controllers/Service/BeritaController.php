@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Penduduk\BeritaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BeritaController extends Controller
 {
@@ -32,13 +33,22 @@ class BeritaController extends Controller
 
     public function store(Request $request): JsonResponse 
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'penulis' => 'required|string',
             'judul' => 'required|string',
             'isi' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $data = $this->service->store($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $this->service->store($validator->validated(), $request);
 
         return response()->json([
             'success' => true,
@@ -59,13 +69,22 @@ class BeritaController extends Controller
 
     public function update(Request $request, string $id): JsonResponse 
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'penulis' => 'required|string',
             'judul' => 'required|string',
             'isi' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $data = $this->service->update($id, $validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $this->service->update($id, $validator->validated(), $request);
 
         return response()->json([
             'success' => true,

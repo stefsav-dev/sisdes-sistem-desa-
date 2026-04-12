@@ -39,6 +39,7 @@ class DataKkController extends Controller
             'nomor_kk' => 'required|unique:kk,nomor_kk',
             'nama_kepala_keluarga' => 'required|string',
             'alamat' => 'required|string',
+            'anggota_keluarga' => 'nullable|uuid|exists:ktp,id',
         ]);
 
         $data = $this->service->store($validated);
@@ -66,6 +67,7 @@ class DataKkController extends Controller
             'nomor_kk' => 'sometimes|unique:kk,nomor_kk,' . $id,
             'nama_kepala_keluarga' => 'sometimes|string',
             'alamat' => 'sometimes|string',
+            'anggota_keluarga' => 'nullable|uuid|exists:ktp,id',
         ]);
 
         $data = $this->service->update($id, $validated);

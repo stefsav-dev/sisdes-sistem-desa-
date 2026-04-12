@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("penulis");
             $table->text("judul");
             $table->text("isi")->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

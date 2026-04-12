@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class RondaService {
     public function GetAll(Request $request) {
-        $query = Ronda::with('ronda');
+        $query = Ronda::with('user');
 
         if ($request->has("search")) {
             $search = $request->search;
@@ -27,7 +27,7 @@ class RondaService {
     }
 
     public function findById(string $id) {
-        return Ronda::with("ronda")->findOrFail($id);
+        return Ronda::with('user')->findOrFail($id);
     }
 
     public function update(string $id, array $data) {

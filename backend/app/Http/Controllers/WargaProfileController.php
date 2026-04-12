@@ -60,7 +60,7 @@ class WargaProfileController extends Controller
             'kk.nomor_kk' => $kk ? ['sometimes', 'string', Rule::unique('kk', 'nomor_kk')->ignore($kk->id)] : 'prohibited',
             'kk.nama_kepala_keluarga' => $kk ? 'sometimes|string' : 'prohibited',
             'kk.alamat' => $kk ? 'sometimes|string' : 'prohibited',
-            'kk.anggota_keluarga' => $kk ? 'sometimes|string' : 'prohibited',
+            'kk.anggota_keluarga' => $kk ? 'sometimes|nullable|uuid|exists:ktp,id' : 'prohibited',
         ]);
 
         DB::transaction(function () use ($validated, $user, $ktp, $kk): void {

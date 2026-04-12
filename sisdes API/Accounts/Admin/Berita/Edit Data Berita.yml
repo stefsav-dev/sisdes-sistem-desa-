@@ -7,23 +7,31 @@ http:
   method: PUT
   url: "{{base_url}}/api/berita/{{id}}"
   body:
-    type: json
-    data: |-
-      {
-        "penulis" : "udin1",
-        "judul" : "manusia serigala2",
-        "isi" : "Manusia setengah serigala yang berbulu domba1"
-      }
+    type: multipart-form
+    data:
+      - name: penulis
+        type: text
+        value: "testing 3 "
+      - name: judul
+        type: text
+        value: testing 3
+      - name: isi
+        type: text
+        value: ini adalah testing 3
+      - name: image
+        type: file
+        value:
+          - /home/stefanus/Pictures/pexels-mark-chen-1620501959-27545163.jpg
   auth:
     type: bearer
-    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzc1NDYyMDMyLCJleHAiOjE3NzU0NjU2MzIsIm5iZiI6MTc3NTQ2MjAzMiwianRpIjoieDhUMWlrTlF4RWUyanltYSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFkbWluIFVzZXIifQ.sB9-BPgoEBwKWJSHyF9KIa2LY3FvbwYU5ehV3yzfkP4
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzc1NjE0NTk2LCJleHAiOjE3NzU2MTgxOTYsIm5iZiI6MTc3NTYxNDU5NiwianRpIjoiTDlUVHBtM1d5Qmhta21PbiIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFkbWluIFVzZXIifQ.vGBdHUqrkWzwBGEdNInV4N6rDdojd6lMMNj1EI0BcZ8
 
 runtime:
   variables:
     - name: base_url
       value: http://localhost:8000
     - name: id
-      value: "1"
+      value: "3"
 
 settings:
   encodeUrl: true

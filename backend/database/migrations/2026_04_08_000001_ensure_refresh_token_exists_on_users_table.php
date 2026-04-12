@@ -13,7 +13,7 @@ return new class extends Migration
         }
 
         Schema::table('users', function (Blueprint $table) {
-            $table->text('refresh_token')->nullable()->after('password');
+            $table->text('refresh_token')->nullable()->after('role');
         });
     }
 

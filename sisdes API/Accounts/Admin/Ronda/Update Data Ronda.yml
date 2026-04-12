@@ -1,19 +1,22 @@
 info:
-  name: Add Data KK
+  name: Update Data Ronda
   type: http
   seq: 2
 
 http:
-  method: POST
-  url: "{{base_url}}/api/kk"
+  method: PUT
+  url: "{{base_url}}/api/ronda/{{id}}"
   body:
     type: json
-    data: |
+    data: |-
       {
-        "nomor_kk": "317xxxxxxxxxxxxx",
-        "nama_kepala_keluarga": "Budi Santoso",
-        "alamat": "Jl. Melati No. 1",
-        "anggota_keluarga": ""
+        "nama": "Udin 2",
+        "status": "berangkat",
+        "alasan": null,
+        "berangkat": "2026-04-08 20:00:00",
+        "pulang": null,
+        "longitude": "110.3695",
+        "latitude": "-7.7956"
       }
   auth:
     type: bearer
@@ -23,6 +26,8 @@ runtime:
   variables:
     - name: base_url
       value: http://localhost:8000
+    - name: id
+      value: "1"
 
 settings:
   encodeUrl: true

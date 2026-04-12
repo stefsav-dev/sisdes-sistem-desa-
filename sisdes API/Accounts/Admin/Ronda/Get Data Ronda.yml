@@ -1,0 +1,22 @@
+info:
+  name: Get Data Ronda
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/ronda"
+  auth:
+    type: bearer
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzc1NzAwMDk0LCJleHAiOjE3NzU3MDM2OTQsIm5iZiI6MTc3NTcwMDA5NCwianRpIjoiTDZaM0lJU0UwT1F2cEJ4UyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFkbWluIFVzZXIifQ.6h4Dm_w1QgKUnI4Yg5UTy02b0DGbH2nUcV-PxCwjfhg
+
+runtime:
+  variables:
+    - name: base_url
+      value: http://localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

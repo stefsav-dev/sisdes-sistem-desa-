@@ -6,6 +6,7 @@ use App\Http\Controllers\WargaProfileController;
 use App\Http\Controllers\Service\DataKtpController;
 use App\Http\Controllers\Service\DataKkController;
 use App\Http\Controllers\Service\BeritaController;
+use App\Http\Controllers\Service\RondaController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,6 +48,11 @@ Route::middleware(['auth:api'])->group(function () {
         Route::apiResource('kk', DataKkController::class);
         Route::apiResource('ktp', DataKtpController::class);
         Route::apiResource('berita', BeritaController::class);
+        
+        //Ronda Routes
+        Route::get('/ronda', [RondaController::class, 'index']);
+        Route::put('/ronda/{id}', [RondaController::class, 'update']);
+        Route::delete('/ronda/{id}', [RondaController::class, 'destroy']);
     });
 
     Route::middleware('role:warga')->group(function () {
@@ -54,7 +60,8 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('berita/{id}', [BeritaController::class, 'show']);
         Route::get('/profile', [WargaProfileController::class, 'show']);
         Route::put('/profile', [WargaProfileController::class, 'update']);
-        Route::get('/ronda', [RondaController::class, 'index']);
+
+        //Rounda Routes
         Route::get('/ronda/{id}', [RondaController::class, 'show']);
         Route::post('/ronda', [RondaController::class, 'store']);
     });

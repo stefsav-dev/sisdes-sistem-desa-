@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
-use App\Service\RondaService;
+use App\Services\RondaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -43,6 +43,8 @@ class RondaController extends Controller
             'longitude' => 'required|string',
             'latitude' => 'required|string'
         ]);
+
+        $validated['user_id'] = $request->user()->id;
 
         $data = $this->service->store($validated);
 

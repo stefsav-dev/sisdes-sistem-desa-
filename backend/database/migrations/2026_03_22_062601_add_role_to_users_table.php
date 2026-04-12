@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['warga', 'admin', 'superadmin'])
-            ->default('warga')
-            ->after('password');
-            $table->text('refresh_token')->nullable()->after('role');
+            if (! Schema::hasColumn('users', 'role')) {
+                $table->enum('role', ['warga', 'admin', 'superadmin'])
+                    ->default('warga')
+                    ->after('password');
+            }
+
+            if (! Schema::hasColumn('users', 'refresh_token')) {
+                $table->text('refresh_token')->nullable()->after('role');
+            }
         });
     }
 
@@ -25,7 +30,19 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role','refresh_token']);
+            $columns = [];
+
+            if (Schema::hasColumn('users', 'role')) {
+                $columns[] = 'role';
+            }
+
+            if (Schema::hasColumn('users', 'refresh_token')) {
+                $columns[] = 'refresh_token';
+            }
+
+            if ($columns !== []) {
+                $table->dropColumn($columns);
+            }
         });
     }
 };

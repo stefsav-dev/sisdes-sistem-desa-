@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class DataKkService
 {
     public function getAll(Request $request) {
-        $query = kk::with('ktp');
+        $query = kk::with(['ktp', 'anggotaKeluargaDetail']);
 
         if ($request->has('search')) {
             $search = $request->search;
@@ -22,18 +22,18 @@ class DataKkService
     }
 
     public function store(array $data) {
-        return kk::create($data);
+        return kk::create($data)->load(['ktp', 'anggotaKeluargaDetail']);
     }
 
     public function findById(string $id) {
-        return kk::with("ktp")->findOrFail($id);
+        return kk::with(['ktp', 'anggotaKeluargaDetail'])->findOrFail($id);
     }
 
     public function update(string $id, array $data) {
         $kk = kk::findOrFail($id);
         $kk->update($data);
 
-        return $kk;
+        return $kk->load(['ktp', 'anggotaKeluargaDetail']);
     }
 
     public function delete(string $id) {

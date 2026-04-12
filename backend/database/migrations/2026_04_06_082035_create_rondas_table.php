@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ronda', function (Blueprint $table) {
-            $table->uuid();
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nama');
             $table->enum('status', ['berangkat','ijin']);
             $table->text('alasan')->nullable();
@@ -21,8 +22,6 @@ return new class extends Migration
             $table->text("longitude");
             $table->text("latitude");
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 
